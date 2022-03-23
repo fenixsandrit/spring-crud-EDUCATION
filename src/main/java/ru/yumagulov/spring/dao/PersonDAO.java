@@ -35,4 +35,9 @@ public class PersonDAO {
 
         return person;
     }
+
+    public void save(Person person) {
+        person.setId(++PEOPLE_COUNT);
+        people.add(person);
+    }
 }
