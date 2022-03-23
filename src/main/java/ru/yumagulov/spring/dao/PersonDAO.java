@@ -5,6 +5,7 @@ import ru.yumagulov.spring.models.Person;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class PersonDAO {
@@ -39,5 +40,16 @@ public class PersonDAO {
     public void save(Person person) {
         person.setId(++PEOPLE_COUNT);
         people.add(person);
+    }
+
+    public void update(int id, Person person) {
+        show(id).setName(person.getName());
+    }
+
+    public void delete(int id) {
+        people.removeIf(p -> p.getId() == id);
+        PEOPLE_COUNT--;
+        for (int i = 0; i < people.size(); i++)
+            if(people.get(i).getId()>id)people.get(i).setId(people.get(i).getId()-1);
     }
 }

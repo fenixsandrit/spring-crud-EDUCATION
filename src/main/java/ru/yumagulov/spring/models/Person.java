@@ -1,6 +1,8 @@
 package ru.yumagulov.spring.models;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person  {
     private int id;
     private String name;
 
