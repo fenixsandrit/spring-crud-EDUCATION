@@ -5,7 +5,6 @@ import ru.yumagulov.spring.models.Person;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class PersonDAO {
@@ -14,11 +13,10 @@ public class PersonDAO {
 
     {
         people = new ArrayList<>();
-
-        people.add(new Person(++PEOPLE_COUNT, "Tom"));
-        people.add(new Person(++PEOPLE_COUNT, "Bob"));
-        people.add(new Person(++PEOPLE_COUNT, "Mike"));
-        people.add(new Person(++PEOPLE_COUNT, "Katy"));
+        people.add(new Person(++PEOPLE_COUNT, "Tom",20, "Tom@gmail.com"));
+        people.add(new Person(++PEOPLE_COUNT, "Bob", 21, "Bob@gmail.com"));
+        people.add(new Person(++PEOPLE_COUNT, "Mike", 22, "Mike@gmail.com"));
+        people.add(new Person(++PEOPLE_COUNT, "Katy", 23, "Katy@gmail.com"));
     }
 
     public List<Person> index() {
@@ -26,15 +24,7 @@ public class PersonDAO {
     }
 
     public Person show(int id) {
-        Person person = null;
-        for (int i = 0; i < people.size(); i++)
-            if(id == people.get(i).getId())
-            {
-                person = people.get(i);
-                break;
-            }
-
-        return person;
+        return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
     }
 
     public void save(Person person) {
@@ -44,6 +34,8 @@ public class PersonDAO {
 
     public void update(int id, Person person) {
         show(id).setName(person.getName());
+        show(id).setAge(person.getAge());
+        show(id).setEmail(person.getEmail());
     }
 
     public void delete(int id) {
